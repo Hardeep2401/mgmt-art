@@ -1,0 +1,62 @@
+
+<div class="container p-5 ">
+    <div class="col-6 border p-4">
+        <form #userForm="ngForm" (ngSubmit)="getUserValue(userForm.value)">
+            
+            <div>
+                <input type="hidden" name="id" ngModel>
+                <label for="" class="form-check-label mt-2">name</label>
+                <input class="form-control  mt-2" type="text" name="name" ngModel>
+                <label for="" class="form-check-label mt-2">username</label>
+                <input class="form-control  mt-2" type="text" name="username" ngModel>
+                <label for="" class="form-check-label mt-2">email</label>
+                <input class="form-control  mt-2" type="email" name="email" ngModel>
+                <button type="submit" class="btn btn-primary mt-4">{{editMode? 'Update' : 'Submit'}}</button>
+            </div>
+        </form>
+    </div>
+    <h1 class="pb-5 text-danger mt-4"> </h1>
+    <table class="table border">
+        <thead>
+            <tr class="table-secondary">
+                <th scope="col" routerLink="">id</th>
+                <th scope="col">name</th>
+                <th scope="col">username</th>
+                <th scope="col">email</th>
+                <th scope="col">Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let table of tableData, index as i">
+                <th scope="col">{{table.id}}</th>
+                <th scope="col">{{table.name}}</th>
+                <th scope="col">{{table.username}}</th>
+                <th scope="col">{{table.email}}</th>
+                <th scope="col"> <button type="submit" class="btn btn-warning"
+                        (click)="onSave(tableData,i)">Edit</button>
+                    <button type="submit" class="btn btn-danger mx-3"  (click)="openModal()">Delete</button>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <!-- update form -->
+    <div class="modal " id="staticBackdrop" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" *ngFor="let table of tableData,index as i">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5>Are you show to delete the selected record!</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger" (click)="onDeleteUser(tableData,i)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
